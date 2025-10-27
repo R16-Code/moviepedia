@@ -16,12 +16,12 @@ include 'config/functions.php';
     <nav class="bg-black shadow-lg w-full sticky top-0 z-50 border-b border-red-600">
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
             <a href="index.php" class="text-2xl font-bold text-red-600">Movie.pedia</a>
-            <div class="flex items-center space-x-4">           
+            <div class="flex items-center space-x-4">
+                <a href="index.php" class="text-white hidden hover:text-orange-500 hidden md:block">Beranda</a>
+                <a href="about.php" class="text-red-600 font-medium hover:text-orange-500 hidden md:block">Tentang Kami</a>
+                <a href="contact.php" class="text-white hover:text-orange-500 hidden md:block">Kontak</a>           
                 <?php if (isset($_SESSION['user_id'])): ?>
-                    <a href="index.php" class="text-white hidden hover:text-orange-500 hidden md:block">Beranda</a>
                     <a href="user/watchlist.php" class="text-white hover:text-orange-500 hidden md:block">Watchlist Saya</a>
-                    <a href="about.php" class="text-red-600 font-medium hover:text-orange-500 hidden md:block">Tentang Kami</a>
-                    <a href="contact.php" class="text-white hover:text-orange-500 hidden md:block">Kontak</a>
                     <?php if ($_SESSION['role'] === 'admin'): ?>
                         <a href="admin/dashboard.php" class="text-white hover:text-orange-500 hidden md:block">Admin</a>
                     <?php endif; ?>
@@ -31,6 +31,7 @@ include 'config/functions.php';
                         Logout
                     </a>
                 <?php else: ?>
+                    <span class="text-red-600 hidden md:block">|</span>
                     <a href="auth/login.php" class="text-white hover:text-orange-500">Login</a>
                     <a href="auth/register.php" class="bg-red-600 hover:bg-orange-600 text-white px-3 py-1 rounded-md text-sm font-medium">
                         Register
@@ -64,7 +65,7 @@ include 'config/functions.php';
                         <p class="flex items-start">
                             <span class="text-red-600 mr-2 mt-1">&#10003;</span> 
                             <span class="font-bold text-white mr-1">Misi:</span> 
-                            Menyediakan katalog film yang selalu up-to-date, dilengkapi fitur pencarian dan filter genre yang intuitif, serta watchlist pribadi dengan antarmuka yang sederhana namun menarik.
+                            Menyediakan katalog film yang selalu up-to-date, dilengkapi fitur pencarian dan filter genre, serta watchlist pribadi dengan antarmuka yang sederhana namun menarik.
                         </p>
                     </div>
                 </div>

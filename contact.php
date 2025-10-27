@@ -24,11 +24,11 @@ $whatsapp_message = "Halo, saya ingin bertanya tentang Movie.pedia.";
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
             <a href="index.php" class="text-2xl font-bold text-red-600">Movie.pedia</a>
             <div class="flex items-center space-x-4">
+                <a href="index.php" class="text-white hidden hover:text-orange-500 hidden md:block">Beranda</a>
+                <a href="about.php" class="text-white hover:text-orange-500 hidden md:block">Tentang Kami</a>
+                <a href="contact.php" class="text-red-600 font-medium hover:text-orange-500 hidden md:block">Kontak</a>
                 <?php if (isset($_SESSION['user_id'])): ?>
-                    <a href="index.php" class="text-white hidden hover:text-orange-500 hidden md:block">Beranda</a>
                     <a href="user/watchlist.php" class="text-white hover:text-orange-500 hidden md:block">Watchlist Saya</a>
-                    <a href="about.php" class="text-white hover:text-orange-500 hidden md:block">Tentang Kami</a>
-                    <a href="contact.php" class="text-red-600 font-medium hover:text-orange-500 hidden md:block">Kontak</a>
                     <?php if ($_SESSION['role'] === 'admin'): ?>
                         <a href="admin/dashboard.php" class="text-white hover:text-orange-500 hidden md:block">Admin</a>
                     <?php endif; ?>
@@ -38,6 +38,7 @@ $whatsapp_message = "Halo, saya ingin bertanya tentang Movie.pedia.";
                         Logout
                     </a>
                 <?php else: ?>
+                    <span class="text-red-600 hidden md:block">|</span>
                     <a href="auth/login.php" class="text-white hover:text-orange-500">Login</a>
                     <a href="auth/register.php" class="bg-red-600 hover:bg-orange-600 text-white px-3 py-1 rounded-md text-sm font-medium">
                         Register

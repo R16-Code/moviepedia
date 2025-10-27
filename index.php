@@ -63,11 +63,11 @@ $query_params = $_GET;
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
             <a href="index.php" class="text-2xl font-bold text-red-600">Movie.pedia</a>
             <div class="flex items-center space-x-4">
+                <a href="index.php" class="text-red-600 font-medium hidden hover:text-orange-500 hidden md:block">Beranda</a>
+                <a href="about.php" class="text-white hover:text-orange-500 hidden md:block">Tentang Kami</a>
+                <a href="contact.php" class="text-white hover:text-orange-500 hidden md:block">Kontak</a>
                 <?php if (isset($_SESSION['user_id'])): ?>
-                    <a href="index.php" class="text-red-600 font-medium hidden hover:text-orange-500 hidden md:block">Beranda</a>
                     <a href="user/watchlist.php" class="text-white hover:text-orange-500 hidden md:block">Watchlist Saya</a>
-                    <a href="about.php" class="text-white hover:text-orange-500 hidden md:block">Tentang Kami</a>
-                    <a href="contact.php" class="text-white hover:text-orange-500 hidden md:block">Kontak</a>
                     <?php if ($_SESSION['role'] === 'admin'): ?>
                         <a href="admin/dashboard.php" class="text-white hover:text-orange-500 hidden md:block">Admin</a>
                     <?php endif; ?>
@@ -77,6 +77,7 @@ $query_params = $_GET;
                         Logout
                     </a>
                 <?php else: ?>
+                    <span class="text-red-600 hidden md:block">|</span>
                     <a href="auth/login.php" class="text-white hover:text-orange-500">Login</a>
                     <a href="auth/register.php" class="bg-red-600 hover:bg-orange-600 text-white px-3 py-1 rounded-md text-sm font-medium">
                         Register
@@ -103,6 +104,18 @@ $query_params = $_GET;
                 <option value="Comedy" <?= $filter_genre == 'Comedy' ? 'selected' : ''; ?>>Comedy</option>
                 <option value="Horror" <?= $filter_genre == 'Horror' ? 'selected' : ''; ?>>Horror</option>
                 <option value="Sci-Fi" <?= $filter_genre == 'Sci-Fi' ? 'selected' : ''; ?>>Sci-Fi</option>
+                <option value="Adventure" <?= $filter_genre == 'Adventure' ? 'selected' : ''; ?>>Adventure</option>
+                <option value="Fantasy" <?= $filter_genre == 'Fantasy' ? 'selected' : ''; ?>>Fantasy</option>
+                <option value="Thriller" <?= $filter_genre == 'Thriller' ? 'selected' : ''; ?>>Thriller</option>
+                <option value="Mystery" <?= $filter_genre == 'Mystery' ? 'selected' : ''; ?>>Mystery</option>
+                <option value="Crime" <?= $filter_genre == 'Crime' ? 'selected' : ''; ?>>Crime</option>
+                <option value="Romance" <?= $filter_genre == 'Romance' ? 'selected' : ''; ?>>Romance</option>
+                <option value="Animation" <?= $filter_genre == 'Animation' ? 'selected' : ''; ?>>Animation</option>
+                <option value="Documentary" <?= $filter_genre == 'Documentary' ? 'selected' : ''; ?>>Documentary</option>
+                <option value="Family" <?= $filter_genre == 'Family' ? 'selected' : ''; ?>>Family</option>
+                <option value="History" <?= $filter_genre == 'History' ? 'selected' : ''; ?>>History</option>
+                <option value="War" <?= $filter_genre == 'War' ? 'selected' : ''; ?>>War</option>
+                <option value="Musical" <?= $filter_genre == 'Musical' ? 'selected' : ''; ?>>Musical</option>
             </select>
             <button type="submit" class="bg-red-600 hover:bg-orange-600 text-white font-bold py-3 px-5 rounded-md">Cari</button>
             <a href="index.php" class="bg-black hover:bg-red-600 text-white font-bold py-3 px-5 rounded-md text-center border border-red-600">Reset</a>
