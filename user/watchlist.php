@@ -27,7 +27,6 @@ $result = mysqli_query($koneksi, $sql);
     </style>
 </head>
 <body class="bg-black text-white font-sans min-h-screen">
-
     <nav class="bg-black shadow-lg w-full sticky top-0 z-50 border-b border-red-600">
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
             <a href="index.php" class="text-2xl font-bold text-red-600">Movie.pedia</a>

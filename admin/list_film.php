@@ -28,7 +28,7 @@ $result = mysqli_query($koneksi, $sql);
                 <a href="dashboard.php" class="text-xl font-bold text-red-600 hover:text-orange-500">Admin Movie.pedia</a>
                 <span class="text-red-600">|</span>
                 <a href="dashboard.php" class="text-white hover:text-orange-500">Beranda</a>
-                <a href="list_film.php" class="font-bold text-white">List Film</a> 
+                <a href="list_film.php" class="font-bold text-red-600">List Film</a> 
                 <a href="add_film.php" class="text-white hover:text-orange-500">Tambah Film</a>
             </div>
             <div class="flex items-center space-x-4">
