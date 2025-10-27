@@ -106,6 +106,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </button>
         </form>
         
+        <p class="text-center text-gray-500 my-4 text-sm">-- ATAU --</p>
+
+        <a href="../index.php" class="w-full text-center block bg-black hover:bg-red-900 text-red-400 font-bold py-3 px-5 rounded-md transition duration-300 border border-red-600">
+            Masuk sebagai Tamu
+        </a>
+
         <p class="text-center text-gray-300 mt-6 text-sm">
             Belum punya akun? 
             <a href="register.php" class="text-red-600 hover:text-orange-500 font-medium">Daftar di sini</a>.
