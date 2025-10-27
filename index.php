@@ -64,7 +64,10 @@ $query_params = $_GET;
             <a href="index.php" class="text-2xl font-bold text-red-600">Movie.pedia</a>
             <div class="flex items-center space-x-4">
                 <?php if (isset($_SESSION['user_id'])): ?>
+                    <a href="index.php" class="text-red-600 font-medium hidden hover:text-orange-500 hidden md:block">Beranda</a>
                     <a href="user/watchlist.php" class="text-white hover:text-orange-500 hidden md:block">Watchlist Saya</a>
+                    <a href="about.php" class="text-white hover:text-orange-500 hidden md:block">Tentang Kami</a>
+                    <a href="contact.php" class="text-white hover:text-orange-500 hidden md:block">Kontak</a>
                     <?php if ($_SESSION['role'] === 'admin'): ?>
                         <a href="admin/dashboard.php" class="text-white hover:text-orange-500 hidden md:block">Admin</a>
                     <?php endif; ?>

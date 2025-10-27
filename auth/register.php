@@ -53,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body class="bg-black flex items-center justify-center min-h-screen py-10">
 
-    <div class="bg-red-800 p-8 rounded-xl shadow-2xl w-full max-w-md border border-red-600">
+    <div class="bg-black p-8 rounded-xl shadow-2xl w-full max-w-md border-[2px] border-red-600"">
         
         <a href="../index.php" class="text-3xl font-bold text-red-600 text-center block mb-6">Movie.pedia</a>
         <h2 class="text-2xl font-semibold text-center text-white mb-6">Buat Akun Baru</h2>
@@ -68,14 +68,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <?php if (!$sukses): ?>
         <form action="register.php" method="POST" class="space-y-6">
             <div>
-                <label for="username" class="block text-sm font-medium text-white mb-1">Username (Nama Tampilan)</label>
+                <label for="username" class="block text-sm font-medium text-white mb-1">Username</label>
                 <input 
                     type="text" 
                     id="username" 
                     name="username" 
                     value="<?= htmlspecialchars($username ?? ''); ?>"
                     required
-                    class="w-full p-3 border border-red-600 bg-black text-white rounded-md focus:outline-none focus:ring-2 focus:ring-orange-600"
+                    class="w-full p-3 border border-red-600 bg-white text-black rounded-md focus:outline-none focus:ring-2 focus:ring-orange-600"
                 >
             </div>
             
@@ -87,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     name="email" 
                     value="<?= htmlspecialchars($email ?? ''); ?>"
                     required
-                    class="w-full p-3 border border-red-600 bg-black text-white rounded-md focus:outline-none focus:ring-2 focus:ring-orange-600"
+                    class="w-full p-3 border border-red-600 bg-white text-black rounded-md focus:outline-none focus:ring-2 focus:ring-orange-600"
                 >
             </div>
 
@@ -98,7 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     id="password" 
                     name="password" 
                     required
-                    class="w-full p-3 border border-red-600 bg-black text-white rounded-md focus:outline-none focus:ring-2 focus:ring-orange-600"
+                    class="w-full p-3 border border-red-600 bg-white text-black rounded-md focus:outline-none focus:ring-2 focus:ring-orange-600"
                 >
             </div>
             
@@ -109,7 +109,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     id="konfirmasi_password" 
                     name="konfirmasi_password" 
                     required
-                    class="w-full p-3 border border-red-600 bg-black text-white rounded-md focus:outline-none focus:ring-2 focus:ring-orange-600"
+                    class="w-full p-3 border border-red-600 bg-white text-black rounded-md focus:outline-none focus:ring-2 focus:ring-orange-600"
                 >
             </div>
             

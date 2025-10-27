@@ -30,18 +30,27 @@ $result = mysqli_query($koneksi, $sql);
 
     <nav class="bg-black shadow-lg w-full sticky top-0 z-50 border-b border-red-600">
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-            <a href="../index.php" class="text-2xl font-bold text-red-600">Movie.pedia</a>
-            
+            <a href="index.php" class="text-2xl font-bold text-red-600">Movie.pedia</a>
             <div class="flex items-center space-x-4">
-                <a href="../index.php" class="text-white hover:text-orange-500 hidden md:block">Home</a>
-                <?php if ($_SESSION['role'] === 'admin'): ?>
-                    <a href="../admin/dashboard.php" class="text-white hover:text-orange-500 hidden md:block">Admin</a>
+                <?php if (isset($_SESSION['user_id'])): ?>
+                    <a href="../index.php" class="text-white hidden hover:text-orange-500 hidden md:block">Beranda</a>
+                    <a href="watchlist.php" class="text-red-600 font-medium hover:text-orange-500 hidden md:block">Watchlist Saya</a>
+                    <a href="../about.php" class="text-white hover:text-orange-500 hidden md:block">Tentang Kami</a>
+                    <a href="../contact.php" class="text-white hover:text-orange-500 hidden md:block">Kontak</a>
+                    <?php if ($_SESSION['role'] === 'admin'): ?>
+                        <a href="admin/dashboard.php" class="text-white hover:text-orange-500 hidden md:block">Admin</a>
+                    <?php endif; ?>
+                    <span class="text-red-600 hidden md:block">|</span>
+                    <span class="font-medium">Halo, <?= htmlspecialchars($_SESSION['username']); ?></span>
+                    <a href="auth/logout.php" class="bg-red-600 hover:bg-orange-600 text-white px-3 py-1 rounded-md text-sm font-medium">
+                        Logout
+                    </a>
+                <?php else: ?>
+                    <a href="auth/login.php" class="text-white hover:text-orange-500">Login</a>
+                    <a href="auth/register.php" class="bg-red-600 hover:bg-orange-600 text-white px-3 py-1 rounded-md text-sm font-medium">
+                        Register
+                    </a>
                 <?php endif; ?>
-                <span class="text-red-600 hidden md:block">|</span>
-                <span class="font-medium">Halo, <?= htmlspecialchars($_SESSION['username']); ?></span>
-                <a href="../auth/logout.php" class="bg-red-600 hover:bg-orange-600 text-white px-3 py-1 rounded-md text-sm font-medium">
-                    Logout
-                </a>
             </div>
         </div>
     </nav>

@@ -60,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body class="bg-black flex items-center justify-center min-h-screen">
 
-    <div class="bg-red-800 p-8 rounded-xl shadow-2xl w-full max-w-md border border-red-600">
+    <div class="bg-black p-8 rounded-xl shadow-2xl w-full max-w-md border-[2px] border-red-600">
         
         <a href="../index.php" class="text-3xl font-bold text-red-600 text-center block mb-6">Movie.pedia</a>
         <h2 class="text-2xl font-semibold text-center text-white mb-6">Login ke Akun Anda</h2>
@@ -70,9 +70,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <?php endif; ?>
         
         <?php if ($pesan_get === 'wajib_login'): ?>
-            <p class="bg-black text-red-400 p-3 rounded-md mb-4 text-sm border border-red-600">Anda harus login untuk mengakses halaman tersebut.</p>
+            <p class="bg-black text-red-400 p-3 rounded-md mb-2 text-sm">*Anda harus login untuk mengakses halaman tersebut.</p>
         <?php elseif ($pesan_get === 'logout_sukses'): ?>
-            <p class="bg-black text-white p-3 rounded-md mb-4 text-sm border border-red-600">Anda berhasil logout.</p>
+            <p class="bg-black text-red-400 p-3 rounded-md mb-2 text-sm">*Anda berhasil logout.</p>
         <?php endif; ?>
 
         <form action="login.php" method="POST" class="space-y-6">
@@ -83,7 +83,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     id="email" 
                     name="email" 
                     required
-                    class="w-full p-3 border border-red-600 bg-black text-white rounded-md focus:outline-none focus:ring-2 focus:ring-orange-600"
+                    class="w-full p-3 border border-red-600 bg-white text-black rounded-md focus:outline-none focus:ring-2 focus:ring-orange-600"
                 >
             </div>
             
@@ -94,7 +94,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     id="password" 
                     name="password" 
                     required
-                    class="w-full p-3 border border-red-600 bg-black text-white rounded-md focus:outline-none focus:ring-2 focus:ring-orange-600"
+                    class="w-full p-3 border border-red-600 bg-white text-black rounded-md focus:outline-none focus:ring-2 focus:ring-orange-600"
                 >
             </div>
             
