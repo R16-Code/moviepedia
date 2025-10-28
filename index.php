@@ -3,11 +3,6 @@
 include 'config/db_koneksi.php';
 include 'config/functions.php';
 
-// Aturan dasar untuk menampilkan daftar film
-$limit = 6; // Kita ingin menampilkan 6 film per halaman (cocok untuk grid 3 kolom)
-$page = isset($_GET['page']) ? (int)$_GET['page'] : 1; // Ambil nomor halaman dari URL, default-nya halaman 1
-$offset = ($page - 1) * $limit; // Hitung titik awal pengambilan data di database
-
 // Tangani input dari formulir pencarian dan filter
 $search_keyword = isset($_GET['search']) ? mysqli_real_escape_string($koneksi, $_GET['search']) : '';
 $filter_genre = isset($_GET['genre']) ? mysqli_real_escape_string($koneksi, $_GET['genre']) : '';
@@ -26,28 +21,9 @@ if (!empty($filter_genre)) {
 // Gabungkan semua kondisi (jika ada) menjadi satu string WHERE
 $where_string = !empty($where_clause) ? " WHERE " . implode(" AND ", $where_clause) : "";
 
-// Hitung total film yang cocok dengan filter/pencarian saat ini
-$sql_total = "SELECT COUNT(id) as total FROM film $where_string";
-$result_total = mysqli_query($koneksi, $sql_total);
-$total_results = mysqli_fetch_assoc($result_total)['total'];
-
-// Hitung berapa total halaman yang dibutuhkan
-$total_pages = ceil($total_results / $limit);
-
-// Ambil data film yang benar-benar akan ditampilkan di halaman ini
-// Data diurutkan berdasarkan tahun rilis terbaru dan dibatasi oleh LIMIT dan OFFSET
-$sql = "SELECT * FROM film $where_string ORDER BY tahun_rilis DESC LIMIT $limit OFFSET $offset";
+// Ambil semua data film yang sesuai dengan filter
+$sql = "SELECT * FROM film $where_string ORDER BY tahun_rilis DESC";
 $result = mysqli_query($koneksi, $sql);
-
-// Hitung rentang item yang sedang ditampilkan (misalnya: "Showing 7 to 12 of 30")
-$start_item = $offset + 1;
-$end_item = min($page * $limit, $total_results);
-if ($total_results == 0) {
-    $start_item = 0; // Pastikan rentang menjadi "Showing 0 to 0" jika tak ada hasil
-}
-
-// Simpan semua parameter URL saat ini (search, genre) untuk digunakan pada link pagination
-$query_params = $_GET; 
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -166,106 +142,6 @@ $query_params = $_GET;
                 </p>
             <?php endif; ?>
         </div>
-
-        <?php if ($total_pages > 1): // Hanya tampilkan blok ini jika film lebih dari 1 halaman ?>
-        <div class="flex items-center justify-between border-t border-red-600 bg-black px-4 py-3 sm:px-6 mt-12 rounded-lg shadow-xl">
-            
-            <div class="flex flex-1 justify-between sm:hidden">
-                <?php if ($page > 1):
-                    $query_params['page'] = $page - 1; // Atur ke halaman sebelumnya
-                ?>
-                    <a href="index.php?<?= http_build_query($query_params); ?>" class="relative inline-flex items-center rounded-md border border-red-600 bg-red-800 px-4 py-2 text-sm font-medium text-white hover:bg-red-600">Previous</a>
-                <?php else: ?>
-                    <span class="relative inline-flex items-center rounded-md border border-black bg-black px-4 py-2 text-sm font-medium text-gray-700">Previous</span>
-                <?php endif; ?>
-                
-                <?php if ($page < $total_pages):
-                    $query_params['page'] = $page + 1; // Atur ke halaman berikutnya
-                ?>
-                    <a href="index.php?<?= http_build_query($query_params); ?>" class="relative ml-3 inline-flex items-center rounded-md border border-red-600 bg-red-800 px-4 py-2 text-sm font-medium text-white hover:bg-red-600">Next</a>
-                <?php else: ?>
-                    <span class="relative ml-3 inline-flex items-center rounded-md border border-black bg-black px-4 py-2 text-sm font-medium text-gray-700">Next</span>
-                <?php endif; ?>
-            </div>
-
-            <div class="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
-                <div>
-                    <p class="text-sm text-gray-400">
-                        Showing
-                        <span class="font-medium"><?= $start_item; ?></span>
-                        to
-                        <span class="font-medium"><?= $end_item; ?></span>
-                        of
-                        <span class="font-medium"><?= $total_results; ?></span>
-                        results
-                    </p>
-                </div>
-                <div>
-                    <nav class="isolate inline-flex -space-x-px rounded-md shadow-sm" aria-label="Pagination">
-                        <?php if ($page > 1):
-                            $query_params['page'] = $page - 1;
-                        ?>
-                            <a href="index.php?<?= http_build_query($query_params); ?>" class="relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-red-600 hover:bg-red-800 focus:z-20 focus:outline-offset-0">
-                                <span class="sr-only">Previous</span>
-                                <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M12.79 5.23a.75.75 0 010 1.06L9.06 10l3.73 3.71a.75.75 0 11-1.06 1.06l-4.25-4.25a.75.75 0 010-1.06l4.25-4.25a.75.75 0 011.06 0z" clip-rule="evenodd" /></svg>
-                            </a>
-                        <?php else: ?>
-                            <span class="relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-700 ring-1 ring-inset ring-black">
-                                <span class="sr-only">Previous</span>
-                                <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M12.79 5.23a.75.75 0 010 1.06L9.06 10l3.73 3.71a.75.75 0 11-1.06 1.06l-4.25-4.25a.75.75 0 010-1.06l4.25-4.25a.75.75 0 011.06 0z" clip-rule="evenodd" /></svg>
-                            </span>
-                        <?php endif; ?>
-
-                        <?php
-                        $window = 1; // Tampilkan 1 halaman di kiri dan kanan halaman aktif
-                        $show_first_ellipsis = ($page - $window) > 2; // Tampilkan ... setelah halaman 1
-                        $show_last_ellipsis = ($page + $window) < ($total_pages - 1); // Tampilkan ... sebelum halaman terakhir
-
-                        for ($i = 1; $i <= $total_pages; $i++):
-                            $query_params['page'] = $i;
-                            $page_href = 'index.php?' . http_build_query($query_params);
-
-                            // Aturan: Tampilkan halaman 1, halaman terakhir, dan halaman di sekitar halaman aktif
-                            if ($i == 1 || $i == $total_pages || ($i >= $page - $window && $i <= $page + $window)):
-                        ?>
-                                <a href="<?= $page_href; ?>" 
-                                    aria-current="<?= ($i == $page) ? 'page' : 'false'; ?>" 
-                                    class="relative z-10 inline-flex items-center <?= ($i == $page) ? 'bg-red-600 text-white' : 'text-gray-200 ring-1 ring-inset ring-red-600 hover:bg-red-800'; ?> px-4 py-2 text-sm font-semibold focus:z-20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600">
-                                    <?= $i; ?>
-                                </a>
-                        <?php
-                            // Tampilkan "..." setelah halaman 1
-                            elseif ($i == 2 && $show_first_ellipsis):
-                        ?>
-                                <span class="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-400 ring-1 ring-inset ring-red-600">...</span>
-                        <?php
-                            // Tampilkan "..." sebelum halaman terakhir
-                            elseif ($i == ($total_pages - 1) && $show_last_ellipsis):
-                        ?>
-                                <span class="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-400 ring-1 ring-inset ring-red-600">...</span>
-                        <?php
-                            endif;
-                        endfor;
-                        ?>
-
-                        <?php if ($page < $total_pages):
-                            $query_params['page'] = $page + 1;
-                        ?>
-                            <a href="index.php?<?= http_build_query($query_params); ?>" class="relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-red-600 hover:bg-red-800 focus:z-20 focus:outline-offset-0">
-                                <span class="sr-only">Next</span>
-                                <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 010-1.06L10.94 10 7.21 6.29a.75.75 0 111.06-1.06l4.25 4.25a.75.75 0 010 1.06l-4.25 4.25a.75.75 0 01-1.06 0z" clip-rule="evenodd" /></svg>
-                            </a>
-                        <?php else: ?>
-                            <span class="relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-700 ring-1 ring-inset ring-black">
-                                <span class="sr-only">Next</span>
-                                <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 010-1.06L10.94 10 7.21 6.29a.75.75 0 111.06-1.06l4.25 4.25a.75.75 0 010 1.06l-4.25 4.25a.75.75 0 01-1.06 0z" clip-rule="evenodd" /></svg>
-                            </span>
-                        <?php endif; ?>
-                    </nav>
-                </div>
-            </div>
-        </div>
-        <?php endif; ?>
     </div>
 </body>
 </html>

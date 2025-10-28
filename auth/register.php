@@ -26,9 +26,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $result_cek_email = mysqli_query($koneksi, $sql_cek_email);
 
         if (mysqli_num_rows($result_cek_user) > 0) {
-            $error = "Username '$username' sudah digunakan.";
+            $error = "Username '$username' sudah digunakan."; //username sudah digunakan
         } elseif (mysqli_num_rows($result_cek_email) > 0) {
-            $error = "Email '$email' sudah digunakan.";
+            $error = "Email '$email' sudah digunakan."; //email sudah digunakan
         } else {
             $hashed_password = hash_password($password);
             // Query INSERT menyertakan email
